@@ -1,0 +1,78 @@
+.streak-card {
+  background: #fff;
+
+  padding: 2rem;
+
+  border-radius: 16px;
+  box-shadow: 0 6px 18px #69dec4;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.streak-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.fire {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.streak-number {
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #69dec4;
+  margin-top: 0.5rem;
+}
+
+.weekly-header {
+  font-size: 1rem;
+
+  line-height: 1;
+  color: #69dec4;
+  margin-top: 0.5rem;
+  font-size: 1.3rem;
+
+  letter-spacing: 3px;
+   text-align: center;
+}
+.streak-label {
+  margin-top: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #666;
+  letter-spacing: 3px;
+}
+
+.motivational-text {
+  margin: 0;
+  text-align: center;
+  font-style: italic;
+  color: #666;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .streak-card {
+    padding: 1.5rem;
+  }
+  .fire {
+    font-size: 3rem;
+  }
+  .streak-number {
+    font-size: 4rem;
+  }
+  .streak-label {
+    font-size: 1rem;
+  }
+  .weekly-header{
+    font-size: 1rem;
+    line-height: 1.4;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+}

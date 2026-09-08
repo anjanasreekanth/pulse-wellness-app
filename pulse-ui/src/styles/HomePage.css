@@ -1,0 +1,133 @@
+.home-page {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.home-content h1 {
+  max-width: 700px;
+  margin: 8px 0 16px;
+  color: #23493e;
+  font-size: 3.5rem;
+}
+
+.home-label {
+  margin: 0;
+  color: #167c62;
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.home-description {
+  max-width: 620px;
+  color: #687068;
+  font-size: 1.3rem;
+  line-height: 1.6;
+}
+
+.home-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.home-links a {
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.home-primary-link {
+  background: #167c62;
+  color: white;
+}
+.home-second-link {
+  border: 1px solid #167c62;
+  color: #167c62;
+}
+.pulse-animation {
+  display: grid;
+  min-height: 300px;
+  place-items: center;
+}
+.pulse-circle {
+  display: grid;
+  width: 170px;
+  height: 170px;
+  place-items: center;
+  border-radius: 50%;
+  background: #167c62;
+  box-shadow: 0 0 0 18px white;
+  color: white;
+  font-size: 4rem;
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.09);
+  }
+}
+.home-list-card {
+  grid-column: 1 / -1;
+  padding: 50px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 6px 20px black;
+}
+
+.home-list-card h2 {
+  margin-top: 0;
+  color: #167c62;
+}
+
+.home-list-card ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 24px;
+  margin-bottom: 0;
+  padding-left: 24px;
+}
+
+.home-list-card li {
+  color: #167c62;
+}
+
+/* break point to change multi column layout to single column
+Tablet and smaller */
+@media (max-width: 768px) {
+  .home-page {
+    grid-template-columns: 1fr;
+  }
+  .home-content h1 {
+    font-size: 2.2rem;
+  }
+  .pulse-animation {
+    min-height: 220px;
+  }
+  .home-list-card {
+    padding: 20px;
+  }
+}
+
+/**mobile
+reduce padding/font-size and stack buttons
+**/
+@media (max-width: 480px) {
+  .home-links {
+    flex-direction: column;
+  }
+  .home-links {
+    text-align: center;
+  }
+  .home-list-card ul {
+    grid-template-columns: 1fr;
+  }
+}

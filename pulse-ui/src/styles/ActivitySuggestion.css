@@ -1,0 +1,90 @@
+.suggestion-section > p {
+  color: #667a73;
+}
+
+.suggestion-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.suggestion-form fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid #d4e1dc;
+  border-radius: 8px;
+}
+
+.suggestion-form legend {
+  padding: 0 5px;
+  color: #38564d;
+}
+
+.suggestion-form label {
+  color: #536a63;
+}
+
+.find-button {
+  grid-column: 1 / -1;
+  padding: 11px;
+  border: 0;
+  border-radius: 7px;
+  background: #167c62;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.suggestion-result {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  background: #edf974;
+}
+
+.suggestion-result div {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.suggestion-result span {
+  color: #667a73;
+  font-size: 0.8rem;
+}
+
+.suggestion-result button {
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: #167c62;
+  font-weight: bold;
+  color: white;
+}
+
+.logged-message {
+  margin-bottom: 0;
+  color: #126c55;
+  font-weight: bold;
+}
+
+.suggestion-result button:disabled{
+  background: #9bb9b0;
+  cursor: not-allowed;
+}
+@media (max-width: 768px) {
+  .suggestion-form {
+    grid-template-columns: 1fr;
+  }
+  .find-button {
+    grid-column: auto;
+  }
+  .suggestion-result {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

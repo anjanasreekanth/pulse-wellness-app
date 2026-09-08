@@ -1,0 +1,103 @@
+.inspiration-section {
+  display: flex;
+  flex-direction: column;
+}
+.inspiration-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  border-radius: 10px;
+  background: white;
+  text-align: center;
+}
+
+.inspiration-icon {
+  display: grid;
+  width: 55px;
+  height: 55px;
+  place-items: center;
+  border-radius: 50%;
+  background: white;
+  color: #167c62;
+  font-size: 1.5rem;
+}
+
+.inspiration-activity {
+  color: #167c62;
+  font-weight: bold;
+}
+
+.inspiration-content > blockquote {
+  margin: 8px;
+  color: #355249;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+.resource-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 15px;
+}
+.resource-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 14px;
+  border: 1px solid white;
+  border-radius: 10px;
+  background: white;
+}
+.resource-type {
+  align-self: flex-start;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: white;
+  color: #167c62;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.resource-card h3 {
+  margin: 10px 0 5px;
+  font-size: 0.95rem;
+}
+.resource-card p {
+  flex: 1;
+  margin: 0 0 12px;
+  color: #667a73;
+  font-size: 0.8rem;
+}
+.resource-card a {
+  color: #167c62;
+  font-size: 0.81rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+.resource-card a:hover {
+  text-decoration: underline;
+}
+.empty {
+  padding: 32px;
+  margin: auto;
+  color: #687c75;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .resource-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media(max-width: 480px) {
+  .resource-list {
+    grid-template-columns: 1fr;
+  }
+}
+

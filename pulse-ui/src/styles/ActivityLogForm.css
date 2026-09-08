@@ -1,0 +1,42 @@
+.form-title {
+  color: #25483e;
+  font-size: 1.3rem;
+}
+
+.form-field {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #536b64;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.input-field {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid #cddbd6;
+  border-radius: 8px;
+  background: white;
+  color: #263238;
+}
+
+.input-field:focus {
+  border-color: #167c62;
+}
+
+.separator {
+  height: 1px;
+  background: #e1ebe7;
+  margin: 1.25rem 0;
+}
+
+.full-width-button {
+  width: 100%;
+  margin-top: 0.5rem;
+}

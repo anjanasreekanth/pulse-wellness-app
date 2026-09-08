@@ -1,0 +1,57 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+  gap: 1.5rem;
+}
+.dashboard-column {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.card-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+.activity-form-container,
+.activity-table-container {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 6px 20px rgba(35, 100, 80, 0.1);
+}
+
+.activity-message {
+  margin: 0 0 16px;
+  padding: 12px;
+  border: 1px solid #b8dfd2;
+  border-radius: 8px;
+  background: #e3f5ee;
+  color: #126c55;
+  font-weight: bold;
+}
+/** Stack dashboard on tablet and mobile **/
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-grid,
+  .dashboard-column {
+    gap: 1rem;
+  }
+
+  .card-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .activity-form-container,
+  .activity-table-container {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+}

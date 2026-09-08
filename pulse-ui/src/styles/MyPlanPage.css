@@ -1,0 +1,121 @@
+.plan-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.plan-heading h1 {
+  margin: 4px;
+  color: #23493e;
+  font-size: 2.2rem;
+}
+.plan-label {
+  margin: 0;
+  color: #167c62;
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.plan-card {
+  padding: 24px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 6px 20px rgba(35, 100, 80, 0.1);
+}
+.plan-card h2,
+.plan-card h3 {
+  margin-top: 0;
+  color: #25383e;
+}
+.plan-card h2 {
+  font-size: 1rem;
+}
+.plan-card h3 {
+  font-size: 1rem;
+}
+
+.goal-section {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1fr;
+  gap: 24px;
+  align-items: center;
+}
+
+.goal-message {
+  padding-right: 24px;
+  border-right: 1px solid white;
+}
+
+.goal-message p {
+  font-size: 1.3rem;
+}
+
+.goal-progress,
+.goal-setter {
+  padding: 20px;
+  border-radius: 10px;
+  background: white;
+  text-align: center;
+}
+
+.plan-progress-bar {
+  height: 100%;
+  border-radius: 10px;
+  background: #167c62;
+}
+.goal-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+.goal-controls button {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: white;
+  color: #167c62;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+.plan-bottom-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .goal-section {
+    grid-template-columns: 1fr 1fr;
+  }
+  .goal-message {
+    grid-column: 1 / -1;
+    border-right: 0;
+    border-bottom: 1px solid white;
+  }
+}
+@media (max-width: 480px) {
+  .plan-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+  .plan-page {
+    gap: 16px;
+  }
+  .plan-heading h1 {
+    font-size: 1.8rem;
+  }
+
+  .plan-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+  .goal-section {
+    grid-template-columns: 1fr;
+  }
+  .goal-message {
+    grid-column: auto;
+  }
+  .goal-message > p {
+    font-size: 1.1rem;
+  }
+}
