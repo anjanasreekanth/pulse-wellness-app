@@ -18,17 +18,26 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false, length = 20)
+    private String role = "USER";
+
     @Column(nullable = false)
     private Instant createdAt = Instant.now();
 
+    public User() {
+    }
+
+    public User(String name, String email) {
+
+        this.name = name;
+        this.email = email;
+
+    }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -44,6 +53,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Instant getCreatedAt() {
