@@ -23,7 +23,7 @@ public class UserProfile {
     private BigDecimal weightKg;
 
     @Column(length = 30)
-    private String PrimaryGoal;
+    private String primaryGoal;
 
     private Integer dailyWaterTargetMl;
 
@@ -48,16 +48,15 @@ public class UserProfile {
 
     }
 
-    public UserProfile(LocalDate dateOfBirth, BigDecimal heightCm, BigDecimal weightKg, String primaryGoal, Integer dailyWaterTargetMl, BigDecimal sleepTargetHours, String preferredUnit, Instant updatedAt, User user) {
+    public UserProfile(LocalDate dateOfBirth, BigDecimal heightCm, BigDecimal weightKg, String primaryGoal, Integer dailyWaterTargetMl, BigDecimal sleepTargetHours, String preferredUnit,  User user) {
         this.dateOfBirth = dateOfBirth;
         this.heightCm = heightCm;
         this.weightKg = weightKg;
-        PrimaryGoal = primaryGoal;
+        this.primaryGoal = primaryGoal;
         this.dailyWaterTargetMl = dailyWaterTargetMl;
         this.sleepTargetHours = sleepTargetHours;
         this.preferredUnit = preferredUnit;
-        this.updatedAt = updatedAt;
-        this.user = user;
+         this.user = user;
     }
 
     public Long getId() {
@@ -101,11 +100,11 @@ public class UserProfile {
     }
 
     public String getPrimaryGoal() {
-        return PrimaryGoal;
+        return primaryGoal;
     }
 
     public void setPrimaryGoal(String primaryGoal) {
-        PrimaryGoal = primaryGoal;
+        this.primaryGoal = primaryGoal;
     }
 
     public Integer getDailyWaterTargetMl() {
