@@ -11,9 +11,18 @@ import {
   createActivity,
   deleteActivity,
   getAllActivities,
+  getDashboard,
   updateActivity,
- } from "./services/api";
+} from "./services/api";
 const USER_ID = 1;
+const emptyDashboard = {
+  totalActivities: 0,
+  averageScore: 0,
+  currentStreakDays: 0,
+  activitiesCompleted: 0,
+  weeklyGoal: 0,
+  progressPercent: 0,
+};
 function App() {
   // const [activities, setActivities] = useState([
   //   {
@@ -54,7 +63,8 @@ function App() {
   const [userName, setUserName] = useState("");
   const [message, setMessage] = useState("");
   const [activityToEdit, setActivityToEdit] = useState(null);
-   //auto clear message after 2.5 seconds
+  const [dashboardSummary, setDashboardSummary] = useState(emptyDashboard);
+  //auto clear message after 2.5 seconds
   useEffect(() => {
     if (!message) return;
 
@@ -62,20 +72,37 @@ function App() {
       setMessage("");
     }, 2500);
   }, [message]);
-
   useEffect(() => {
     if (!isLoggedIn) return;
 
-    const loadActivities = async () => {
+    const loadDashboardData = async () => {
       try {
-        const savedActivities = await getAllActivities(USER_ID);
+        const [savedActivities, summary] = await Promise.all([
+          getAllActivities(USER_ID),
+          getDashboard(USER_ID),
+        ]);
         setActivities(savedActivities);
+        setDashboardSummary(summary);
       } catch (error) {
         setMessage(error.message);
       }
     };
-    loadActivities();
+    loadDashboardData();
+    //loadActivities();
   }, [isLoggedIn]);
+  // useEffect(() => {
+  //   if (!isLoggedIn) return;
+
+  //   const loadActivities = async () => {
+  //     try {
+  //       const savedActivities = await getAllActivities(USER_ID);
+  //       setActivities(savedActivities);
+  //     } catch (error) {
+  //       setMessage(error.message);
+  //     }
+  //   };
+  //   loadActivities();
+  // }, [isLoggedIn]);
   // 2. event handler to manage add acitivity
   // const handleAddActivity = (newActivity) => {
   //   // add new activity with id
@@ -95,9 +122,10 @@ function App() {
   const handleAddActivity = async (newActivity) => {
     try {
       const savedActivity = await createActivity(USER_ID, newActivity);
+      const summary = await getDashboard(USER_ID);
       setActivities((previous) => [...previous, savedActivity]);
+      setDashboardSummary(summary);
       setMessage("Activity added successfully");
-      setMessage("Activity deleted successfully");
     } catch (error) {
       setMessage(error.message);
       throw error;
@@ -116,10 +144,13 @@ function App() {
   const handleDeleteActivity = async (idToDelete) => {
     try {
       await deleteActivity(USER_ID, idToDelete);
+      const summary = await getDashboard(USER_ID);
       setActivities((previous) =>
         previous.filter((activity) => activity.id !== idToDelete),
       );
+      setDashboardSummary(summary);
       if (activityToEdit?.id === idToDelete) setActivityToEdit(null);
+      setMessage("Activity deleted successfully");
     } catch (error) {
       setMessage(error.message);
     }
@@ -140,11 +171,14 @@ function App() {
         activityToEdit.id,
         updatedActivity,
       );
+      const summary = await getDashboard(USER_ID);
+
       setActivities((previous) =>
         previous.map((activity) =>
           activity.id === savedActivity.id ? savedActivity : activity,
         ),
       );
+      setDashboardSummary(summary);
       setActivityToEdit(null);
       setMessage("Activity updated successfully");
     } catch (error) {
@@ -170,6 +204,7 @@ function App() {
             path="dashboard"
             element={
               <DashboardPage
+                dashboardSummary={dashboardSummary}
                 activities={activities}
                 weeklyGoal={weeklyGoal}
                 onAddActivity={handleAddActivity}

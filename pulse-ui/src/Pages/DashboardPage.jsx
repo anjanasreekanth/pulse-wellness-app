@@ -4,7 +4,8 @@ import AverageScoreCard from "../components/AverageScoreCard";
 import StreakCard from "../components/StreakCard";
 function DashboardPage({
   activities,
-  weeklyGoal,
+  //weeklyGoal,
+  dashboardSummary,
   onAddActivity,
   onUpdateActivity,
   activityToEdit,
@@ -14,13 +15,13 @@ function DashboardPage({
   message,
 }) {
   //1. Create state for integration
-
+//console.log("DASHBOARD", dashboardSummary)
   //streak - mock based on number of activities
-  const calculateStreak = (activityCount) => {
-    if (activityCount < 3) return 3;
-    if (activityCount < 10) return 7;
-    return 14; // if 10+ then 14 days streak
-  };
+  // const calculateStreak = (activityCount) => {
+  //   if (activityCount < 3) return 3;
+  //   if (activityCount < 10) return 7;
+  //   return 14; // if 10+ then 14 days streak
+  // };
 
   return (
     // conditional rendering of add / delete message
@@ -40,12 +41,18 @@ function DashboardPage({
         {/** right column */}
         <div className="dashboard-column">
           <div className="card-row">
-            <AverageScoreCard activities={activities} />
+            <AverageScoreCard
+              averageScore={dashboardSummary.averageScore}
+              totalActivities={dashboardSummary.totalActivities}
+            />
 
             <StreakCard
-              streakValue={calculateStreak(activities.length)}
-              currentDays={activities.length}
-              weeklyGoal={weeklyGoal}
+              // streakValue={calculateStreak(activities.length)}
+              // currentDays={activities.length}
+              // weeklyGoal={weeklyGoal}
+              streakValue={dashboardSummary.currentStreakDays}
+              currentDays={dashboardSummary.activitiesCompleted}
+              weeklyGoal={dashboardSummary.weeklyGoal}
             />
           </div>
 
