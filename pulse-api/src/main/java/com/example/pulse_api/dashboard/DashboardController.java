@@ -30,6 +30,7 @@ public class DashboardController {
         this.weeklyGoalRepository = weeklyGoalRepository;
     }
 
+    //return average activity score rounded to 1 decimal place
     private double calculateAverageScore(List<ActivityLog> activities) {
         if (activities.isEmpty()) {
 
@@ -47,6 +48,7 @@ public class DashboardController {
         return Math.round(average * 10.0) / 10.0;
     }
 
+    //count activities from Monday to Sunday for the selected week
     private int countWeeklyActivities(List<ActivityLog> activities, LocalDate weekStart) {
         LocalDate weekEnd = weekStart.plusDays(6);
         int count = 0;
@@ -60,8 +62,10 @@ public class DashboardController {
         return count;
     }
 
+    //Count unique activity date , starting with today or yesterday
     private int calculateStreak(List<ActivityLog> activities) {
         List<LocalDate> activityDates = new ArrayList<>();
+        //Multiple activities on the same day treated as 1 streak day
         for (ActivityLog activity : activities) {
             LocalDate date = activity.getActivityDate();
             if (date != null && !activityDates.contains(date)) {
@@ -69,7 +73,7 @@ public class DashboardController {
             }
         }
 
-        if(activityDates.isEmpty()){
+        if (activityDates.isEmpty()) {
             return 0;
         }
 
@@ -77,14 +81,14 @@ public class DashboardController {
 
         LocalDate latestDate = activityDates.getFirst();
 
-        if(latestDate.isBefore(LocalDate.now().minusDays(1))){
+        if (latestDate.isBefore(LocalDate.now().minusDays(1))) {
             return 0;
         }
 
         int streak = 0;
         LocalDate expectedDate = activityDates.getFirst();
-        for(LocalDate activityDate : activityDates){
-            if(!activityDate.equals(expectedDate)){
+        for (LocalDate activityDate : activityDates) {
+            if (!activityDate.equals(expectedDate)) {
                 break;
             }
             streak++;

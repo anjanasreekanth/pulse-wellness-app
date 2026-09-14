@@ -33,21 +33,7 @@ function ActivityLogForm({
   //   sleep: 0,
   // });
   const [formState, setFormState] = useState(initialForm);
-  // 2. Event Handler:  this is executed when button is clicked
-  // const handleSubmit = (e) => {
-  //   e.preventDefault(); //stop page refresh
-  //   // 3.   pass back the collected data to parent page
-  //   onAddActivity(formState);
-  //   // clear the form after submission
-  //   setFormState({
-  //     date: "",
-  //     activity: "",
-  //     activityType: "",
-  //     duration: 0,
-  //     water: 0,
-  //     sleep: 0,
-  //   });
-  // };
+   //use same form for both creating and editing an activity
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -61,7 +47,7 @@ function ActivityLogForm({
       console.log(error);
     }
   };
-  // 4. handle input change event
+  // handle input change event
   const handleChange = (e) => {
     const { id, value, type } = e.target;
     let newValue = value;
