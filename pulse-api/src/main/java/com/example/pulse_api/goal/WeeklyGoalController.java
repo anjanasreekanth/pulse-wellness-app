@@ -29,8 +29,11 @@ public class WeeklyGoalController {
 
     @GetMapping("/current")
     public WeeklyGoal getCurrentGoal(@PathVariable Long userId) {
+        System.out.println(userId);
         LocalDate currentWeekStart = LocalDate.now()
                 .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        System.out.println(currentWeekStart);
+
         return weeklyGoalRepository.findByUserIdAndWeekStart(userId, currentWeekStart)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "weekly goal not found"));
     }
