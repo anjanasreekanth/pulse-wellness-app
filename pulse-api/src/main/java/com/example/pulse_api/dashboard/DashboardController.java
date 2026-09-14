@@ -65,6 +65,7 @@ public class DashboardController {
     //Count unique activity date , starting with today or yesterday
     private int calculateStreak(List<ActivityLog> activities) {
         List<LocalDate> activityDates = new ArrayList<>();
+        //Multiple activities on the same day treated as 1 streak day
         for (ActivityLog activity : activities) {
             LocalDate date = activity.getActivityDate();
             if (date != null && !activityDates.contains(date)) {

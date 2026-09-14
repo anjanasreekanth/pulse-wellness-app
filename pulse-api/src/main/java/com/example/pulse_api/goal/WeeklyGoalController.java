@@ -27,6 +27,7 @@ public class WeeklyGoalController {
 
     }
 
+    //Weekly goal using Monday as the first day of the week
     @GetMapping("/current")
     public WeeklyGoal getCurrentGoal(@PathVariable Long userId) {
         System.out.println(userId);
@@ -44,6 +45,7 @@ public class WeeklyGoalController {
                         HttpStatus.NOT_FOUND, "User not found"
                 ));
     }
+    //Weekly goal using Monday as the first day of the week
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

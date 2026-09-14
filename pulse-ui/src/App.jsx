@@ -71,7 +71,7 @@ function App() {
   const [activityToEdit, setActivityToEdit] = useState(null);
   const [dashboardSummary, setDashboardSummary] = useState(emptyDashboard);
   const [currentUser, setCurrentUser] = useState(null);
-  //auto clear message after 2.5 seconds
+   //Load selected user activities, dashboard summary and current weekly goal 
   useEffect(() => {
     if (!message) return;
 
@@ -165,7 +165,7 @@ function App() {
     }
   };
   //login
-
+//First saved user or creates one for an empty DB
   const login = async (name) => {
     const users = await getUsers();
     let user = users[0];
@@ -205,7 +205,7 @@ function App() {
       throw error;
     }
   };
-
+//update existing weekly goal or create new when a new week begins
   const handleGoalChange = async (targetActivities) => {
     try {
       let savedGoal;
