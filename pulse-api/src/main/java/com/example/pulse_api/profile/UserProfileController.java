@@ -73,4 +73,10 @@ public class UserProfileController {
         return userProfileRepository.save(existingProfile);
     }
 
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProfile(@PathVariable Long userId){
+        UserProfile userProfile = findProfile(userId);
+        userProfileRepository.delete(userProfile);
+    }
 }
