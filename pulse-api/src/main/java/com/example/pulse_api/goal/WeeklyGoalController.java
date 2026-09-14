@@ -12,6 +12,8 @@ import java.time.temporal.TemporalAdjusters;
 
 @RestController
 @RequestMapping("/api/v1/users/{userId}/goals")
+@CrossOrigin(origins = "http://localhost:5173")
+
 public class WeeklyGoalController {
     private final WeeklyGoalRepository weeklyGoalRepository;
     private final UserRepository userRepository;

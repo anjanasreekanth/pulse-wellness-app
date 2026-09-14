@@ -14,12 +14,12 @@ function MyPlanPage({ activities, goal, onGoalChange, onAddActivity }) {
     if (!suggestion) return;
 
     onAddActivity({
-      date: new Date().toDateString().slice(0, 10),
-      activity: suggestion.activity,
-      duration: suggestion.duration,
+      activityDate: new Date().toISOString().split("T")[0],
+      activityName: suggestion.activity,
+      durationMinutes: suggestion.duration,
       activityType: suggestion.type,
-      water: 0,
-      sleep: 0,
+      waterMl: 0,
+      sleepHours: 0,
     });
   };
   return (

@@ -6,6 +6,10 @@ function DashboardPage({
   activities,
   weeklyGoal,
   onAddActivity,
+  onUpdateActivity,
+  activityToEdit,
+  onEditActivity,
+  onCancelEdit,
   onDeleteActivity,
   message,
 }) {
@@ -25,7 +29,13 @@ function DashboardPage({
       <div className="dashboard-grid">
         {/** left column */}
         <div className="dashboard-column">
-          <ActivityLogForm onAddActivity={onAddActivity} />
+          <ActivityLogForm
+            key={activityToEdit?.id ?? "new-activity"}
+            onAddActivity={onAddActivity}
+            onUpdateActivity={onUpdateActivity}
+            activityToEdit={activityToEdit}
+            onCancelEdit={onCancelEdit}
+          />
         </div>
         {/** right column */}
         <div className="dashboard-column">
@@ -41,6 +51,7 @@ function DashboardPage({
 
           <ActivityTable
             activities={activities}
+            onEditActivity={onEditActivity}
             onDeleteActivity={onDeleteActivity}
           />
         </div>
