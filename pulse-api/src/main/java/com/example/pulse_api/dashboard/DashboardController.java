@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users/{userId}/dashboard")
+@CrossOrigin(origins = "http://localhost:5173")
 public class DashboardController {
     private final UserRepository userRepository;
     private final ActivityLogRepository activityLogRepository;

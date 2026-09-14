@@ -2,16 +2,20 @@ package com.example.pulse_api.goal;
 
 import com.example.pulse_api.user.User;
 import com.example.pulse_api.user.UserRepository;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 
 @RestController
 @RequestMapping("/api/v1/users/{userId}/goals")
+@CrossOrigin(origins = "http://localhost:5173")
+
 public class WeeklyGoalController {
     private final WeeklyGoalRepository weeklyGoalRepository;
     private final UserRepository userRepository;
@@ -25,8 +29,11 @@ public class WeeklyGoalController {
 
     @GetMapping("/current")
     public WeeklyGoal getCurrentGoal(@PathVariable Long userId) {
+        System.out.println(userId);
         LocalDate currentWeekStart = LocalDate.now()
                 .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        System.out.println(currentWeekStart);
+
         return weeklyGoalRepository.findByUserIdAndWeekStart(userId, currentWeekStart)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "weekly goal not found"));
     }
@@ -43,7 +50,10 @@ public class WeeklyGoalController {
     public WeeklyGoal createGoal(@PathVariable Long userId,
                                  @RequestBody WeeklyGoal weeklyGoal) {
         User user = findUser(userId);
+        LocalDate currentWeekStart = LocalDate.now()
+                        .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         weeklyGoal.setUser(user);
+        weeklyGoal.setWeekStart(currentWeekStart);
         return weeklyGoalRepository.save(weeklyGoal);
     }
 

@@ -1,31 +1,66 @@
 import { useState } from "react";
-function ActivityLogForm({ onAddActivity }) {
+const emptyForm = {
+  activityDate: "",
+  activityName: "",
+  activityType: "",
+  durationMinutes: "",
+  waterMl: "",
+  sleepHours: "",
+};
+function ActivityLogForm({
+  onAddActivity,
+  onUpdateActivity,
+  activityToEdit,
+  onCancelEdit,
+}) {
+  const initialForm = activityToEdit
+    ? {
+        activityDate: activityToEdit.activityDate,
+        activityName: activityToEdit.activityName,
+        activityType: activityToEdit.activityType,
+        durationMinutes: activityToEdit.durationMinutes,
+        waterMl: activityToEdit.waterMl,
+        sleepHours: activityToEdit.sleepHours,
+      }
+    : emptyForm;
   //1. useState to manage form data
-  const [formState, setFormState] = useState({
-    date: "",
-    activity: "",
-    activityType: "",
-    duration: "",
-    water: 0,
-    sleep: 0,
-  });
-
+  // const [formState, setFormState] = useState({
+  //   date: "",
+  //   activity: "",
+  //   activityType: "",
+  //   duration: "",
+  //   water: 0,
+  //   sleep: 0,
+  // });
+  const [formState, setFormState] = useState(initialForm);
   // 2. Event Handler:  this is executed when button is clicked
-  const handleSubmit = (e) => {
-    e.preventDefault(); //stop page refresh
-    // 3.   pass back the collected data to parent page
-    onAddActivity(formState);
-    // clear the form after submission
-    setFormState({
-      date: "",
-      activity: "",
-      activityType: "",
-      duration: 0,
-      water: 0,
-      sleep: 0,
-    });
+  // const handleSubmit = (e) => {
+  //   e.preventDefault(); //stop page refresh
+  //   // 3.   pass back the collected data to parent page
+  //   onAddActivity(formState);
+  //   // clear the form after submission
+  //   setFormState({
+  //     date: "",
+  //     activity: "",
+  //     activityType: "",
+  //     duration: 0,
+  //     water: 0,
+  //     sleep: 0,
+  //   });
+  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (activityToEdit) {
+        await onUpdateActivity(formState);
+      } else {
+        await onAddActivity(formState);
+      }
+      setFormState(emptyForm);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
   // 4. handle input change event
   const handleChange = (e) => {
     const { id, value, type } = e.target;
@@ -38,19 +73,25 @@ function ActivityLogForm({ onAddActivity }) {
       [id]: newValue,
     }));
   };
+  const handleCancel = () => {
+    setFormState(emptyForm);
+    onCancelEdit();
+  };
   //date validator
   const today = new Date().toISOString().split("T")[0];
   return (
     <div className="activity-form-container">
-      <h3 className="form-title">Activity Log Form</h3>
+      <h3 className="form-title">
+        {activityToEdit ? "Edit Activity Log" : "Activity Log Form"}
+      </h3>
       <form onSubmit={handleSubmit}>
         {/* Field 1 -> Date */}
         <div className="form-field full-width">
-          <label htmlFor="date"> Date: </label>
+          <label htmlFor="activityDate"> Date: </label>
           <input
             type="date"
-            id="date"
-            value={formState.date}
+            id="activityDate"
+            value={formState.activityDate}
             className="input-field"
             onChange={handleChange}
             required
@@ -59,11 +100,11 @@ function ActivityLogForm({ onAddActivity }) {
         </div>
         {/* Field 2 -> Activity */}
         <div className="form-field full-width">
-          <label htmlFor="activity"> Activity: </label>
+          <label htmlFor="activityName"> Activity: </label>
           <select
-            id="activity"
+            id="activityName"
             className="input-field"
-            value={formState.activity}
+            value={formState.activityName}
             onChange={handleChange}
             required
           >
@@ -90,11 +131,11 @@ function ActivityLogForm({ onAddActivity }) {
           </select>
         </div>
         <div className="form-field full-width duration-field">
-          <label htmlFor="duration"> Duration (minutes): </label>
+          <label htmlFor="durationMinutes"> Duration (minutes): </label>
           <input
             type="number"
-            id="duration"
-            value={formState.duration}
+            id="durationMinutes"
+            value={formState.durationMinutes}
             className="input-field water-input"
             onChange={handleChange}
             min="1"
@@ -105,11 +146,11 @@ function ActivityLogForm({ onAddActivity }) {
         <div className="separator"></div>
         {/* Field 5 & Field 6*/}
         <div className="form-field full-width water-sleep-row">
-          <label htmlFor="water"> Water (ml): </label>
+          <label htmlFor="waterMl"> Water (ml): </label>
           <input
             type="number"
-            id="water"
-            value={formState.water}
+            id="waterMl"
+            value={formState.waterMl}
             className="input-field water-input"
             onChange={handleChange}
             min="0"
@@ -118,11 +159,11 @@ function ActivityLogForm({ onAddActivity }) {
           />
         </div>
         <div className="form-field full-width sleep-field">
-          <label htmlFor="sleep"> Sleep: </label>
+          <label htmlFor="sleepHours"> Sleep: </label>
           <input
             type="number"
-            id="sleep"
-            value={formState.sleep}
+            id="sleepHours"
+            value={formState.sleepHours}
             className="input-field sleep-input"
             onChange={handleChange}
             min="0"
@@ -133,8 +174,17 @@ function ActivityLogForm({ onAddActivity }) {
         </div>
         {/* Button */}
         <button className="btn-submit full-width-button" type="submit">
-          ADD LOG
+          {activityToEdit ? "UPDATE LOG" : "ADD LOG"}
         </button>
+
+        {activityToEdit && (
+          <button
+            className="btn cancel-btn"
+            onClick={handleCancel}
+          >
+            CANCEL
+          </button>
+        )}
       </form>
     </div>
   );

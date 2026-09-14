@@ -1,4 +1,4 @@
-function ActivityTable({ activities, onDeleteActivity }) {
+function ActivityTable({ activities, onEditActivity, onDeleteActivity }) {
   return (
     <div className="activity-table-container">
       <div className="table-footer">
@@ -29,29 +29,35 @@ function ActivityTable({ activities, onDeleteActivity }) {
           activities.map((activity) => (
             <div className="table-row " key={activity.id}>
               <div className="col-date" data-label="Date">
-                {activity.date}{" "}
+                {activity.activityDate}{" "}
               </div>
               <div className="col-activity" data-label="Activity">
-                {activity.activity}{" "}
+                {activity.activityName}{" "}
               </div>
               <div className="col-type" data-label="Type">
                 {activity.activityType}{" "}
               </div>
 
               <div className="col-duration" data-label="Duration">
-                {activity.duration}{" "}
+                {activity.durationMinutes}{" "}
               </div>
 
               <div className="col-score" data-label="Score">
                 {activity.score}{" "}
               </div>
               <div className="col-water" data-label="Water">
-                {activity.water} ml
+                {activity.waterMl} ml
               </div>
               <div className="col-sleep" data-label="Sleep">
-                {activity.sleep} hrs
+                {activity.sleepHours} hrs
               </div>
               <div className="col-actions" data-label="Actions">
+                 <button
+                  className="btn edit-btn"
+                  onClick={() => onEditActivity(activity)}
+                >
+                  Edit
+                </button>
                 <button
                   className="btn delete-btn"
                   onClick={() => onDeleteActivity(activity.id)}
