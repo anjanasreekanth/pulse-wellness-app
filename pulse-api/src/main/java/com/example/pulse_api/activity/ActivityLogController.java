@@ -62,6 +62,7 @@ public class ActivityLogController {
     public ActivityLog createActivity(@PathVariable Long userId, @RequestBody ActivityLog activityLog) {
         User user = findUser(userId);
         activityLog.setUser(user);
+        activityLog.setScore(calculateScore(activityLog));
         return activityLogRepository.save(activityLog);
     }
 
@@ -76,7 +77,7 @@ public class ActivityLogController {
         existingActivity.setDurationMinutes(updatedActivity.getDurationMinutes());
         existingActivity.setWaterMl(updatedActivity.getWaterMl());
         existingActivity.setSleepHours(updatedActivity.getSleepHours());
-        existingActivity.setScore(updatedActivity.getScore());
+        existingActivity.setScore(calculateScore(existingActivity));
 
         return activityLogRepository.save(existingActivity);
     }
@@ -87,6 +88,36 @@ public class ActivityLogController {
                                @PathVariable Long activityId) {
         ActivityLog activityLog = findActivity(userId, activityId);
         activityLogRepository.delete(activityLog);
+    }
+
+    //replicate score calculation logic from UI
+    private int calculateScore(ActivityLog activityLog){
+        int durationPoints = 0;
+        if(activityLog.getDurationMinutes() != null){
+            int duration = Math.clamp(activityLog.getDurationMinutes(), 0, 60);
+            durationPoints = (int) Math.round((duration / 60.0) * 4);
+        }
+
+        int waterPoints = 0;
+        if(activityLog.getWaterMl() != null){
+            int water = Math.clamp(activityLog.getWaterMl(), 0, 2000);
+           waterPoints = (int) Math.round((water / 2000.0) * 3);
+        }
+
+        int sleepPoints = 0;
+        if(activityLog.getSleepHours() != null){
+            double sleep = activityLog.getSleepHours().doubleValue();
+            if(sleep >= 7 && sleep <= 9) {
+                sleepPoints = 3;
+            }else if(sleep >= 6 && sleep <= 10){
+                sleepPoints = 2;
+            }else if(sleep > 0){
+                sleepPoints = 1;
+            }
+        }
+
+        return Math.min(durationPoints + waterPoints + sleepPoints , 10);
+
     }
 
 }
