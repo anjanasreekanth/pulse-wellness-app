@@ -4,7 +4,8 @@ import DailyInspiration from "../components/DailyInspiration";
 import WeeklyGoal from "../components/WeeklyGoal";
 import { getActivitySuggestion } from "../components/activitySuggestionGenerator";
 
-function MyPlanPage({ activities, goal, onGoalChange, onAddActivity }) {
+// function MyPlanPage({ activities, goal, onGoalChange, onAddActivity }) {
+function MyPlanPage({ activitiesCompleted, goal, onGoalChange, onAddActivity }) {
   const [suggestion, setSuggestion] = useState(null);
   const findSuggestion = (time, energy) => {
     setSuggestion(getActivitySuggestion(time, energy));
@@ -29,7 +30,7 @@ function MyPlanPage({ activities, goal, onGoalChange, onAddActivity }) {
         <h1>Build your weekly wellness plan</h1>
       </div>
       <WeeklyGoal
-        activitiesCompleted={activities.length}
+        activitiesCompleted={activitiesCompleted}
         weeklyGoal={goal}
         onGoalChange={onGoalChange}
       />

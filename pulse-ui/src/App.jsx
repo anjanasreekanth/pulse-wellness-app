@@ -9,10 +9,13 @@ import { useEffect, useState } from "react";
 import HomePage from "./Pages/HomePage";
 import {
   createActivity,
+  createGoal,
   deleteActivity,
   getAllActivities,
+  getCurrentGoal,
   getDashboard,
   updateActivity,
+  updateGoal,
 } from "./services/api";
 const USER_ID = 1;
 const emptyDashboard = {
@@ -23,6 +26,7 @@ const emptyDashboard = {
   weeklyGoal: 0,
   progressPercent: 0,
 };
+
 function App() {
   // const [activities, setActivities] = useState([
   //   {
@@ -77,12 +81,14 @@ function App() {
 
     const loadDashboardData = async () => {
       try {
-        const [savedActivities, summary] = await Promise.all([
+        const [savedActivities, summary, savedGoal] = await Promise.all([
           getAllActivities(USER_ID),
           getDashboard(USER_ID),
+          getCurrentGoal(USER_ID),
         ]);
         setActivities(savedActivities);
         setDashboardSummary(summary);
+        setWeeklyGoal(savedGoal);
       } catch (error) {
         setMessage(error.message);
       }
@@ -187,6 +193,27 @@ function App() {
     }
   };
 
+  const handleGoalChange = async (targetActivities) => {
+    try {
+      let savedGoal;
+      if (weeklyGoal) {
+        savedGoal = await updateGoal(USER_ID, weeklyGoal.id, {
+          targetActivities,
+        });
+      } else {
+        savedGoal = createGoal(USER_ID, {
+          targetActivities,
+        });
+      }
+      const summary = await getDashboard(USER_ID);
+      setWeeklyGoal(savedGoal);
+      setDashboardSummary(summary);
+      setMessage("Weekly goal updated");
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+
   if (!isLoggedIn) {
     return (
       <Routes>
@@ -222,9 +249,11 @@ function App() {
             path="my-plan"
             element={
               <MyPlanPage
-                activities={activities}
-                goal={weeklyGoal}
-                onGoalChange={setWeeklyGoal}
+                //activities={activities}
+                activitiesCompleted={dashboardSummary.activitiesCompleted}
+                goal={weeklyGoal?.targetActivities ?? 4}
+                //onGoalChange={setWeeklyGoal}
+                onGoalChange={handleGoalChange}
                 onAddActivity={handleAddActivity}
               />
             }
