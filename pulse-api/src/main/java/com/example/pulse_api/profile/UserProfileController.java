@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.nio.file.attribute.UserPrincipal;
 import java.time.Instant;
 
 @RestController
@@ -22,31 +21,32 @@ public class UserProfileController {
         this.userRepository = userRepository;
     }
 
-    private UserProfile findProfile(Long userId){
+    private UserProfile findProfile(Long userId) {
         return userProfileRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "User not found"
                 ));
     }
+
     @GetMapping
-    public UserProfile getProfile(@PathVariable Long userId){
+    public UserProfile getProfile(@PathVariable Long userId) {
         return findProfile(userId);
     }
 
-    private User findUser(Long userId){
-       return userRepository.findById(userId)
-               .orElseThrow(() -> new ResponseStatusException(
-                       HttpStatus.NOT_FOUND, "User not found"
-               ));
+    private User findUser(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "User not found"
+                ));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
 
-    public UserProfile createProfile(@PathVariable Long UserId,
-                                     @RequestBody UserProfile userProfile){
+    public UserProfile createProfile(@PathVariable Long userId,
+                                     @RequestBody UserProfile userProfile) {
         User user = findUser(userId);
-        if(userProfileRepository.findByUserId(userId).isPresent()){
+        if (userProfileRepository.findByUserId(userId).isPresent()) {
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT, "Profile exists"
             );
@@ -56,6 +56,21 @@ public class UserProfileController {
         return userProfileRepository.save(userProfile);
     }
 
+    @PutMapping
+    public UserProfile updateProfile(@PathVariable Long userId,
+                                     @RequestBody UserProfile updatedProfile) {
+        UserProfile existingProfile = findProfile(userId);
+        existingProfile.setDateOfBirth(updatedProfile.getDateOfBirth());
+        existingProfile.setHeightCm(updatedProfile.getHeightCm());
+        existingProfile.setWeightKg(updatedProfile.getWeightKg());
+        existingProfile.setPrimaryGoal(updatedProfile.getPrimaryGoal());
+        existingProfile.setDailyWaterTargetMl(updatedProfile.getDailyWaterTargetMl());
+        existingProfile.setSleepTargetHours(updatedProfile.getSleepTargetHours());
+        existingProfile.setPreferredUnit(updatedProfile.getPreferredUnit());
+        existingProfile.setActivityLevel(updatedProfile.getActivityLevel());
+        existingProfile.setUpdatedAt(Instant.now());
 
+        return userProfileRepository.save(existingProfile);
+    }
 
 }

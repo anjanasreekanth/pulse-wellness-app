@@ -36,8 +36,11 @@ public class UserProfile {
     @Column(nullable = false)
     private Instant updatedAt = Instant.now();
 
+    @Column(length = 20)
+    private String activityLevel;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
+
 
     private User user;
 
@@ -59,6 +62,14 @@ public class UserProfile {
 
     public Long getId() {
         return id;
+    }
+
+    public String getActivityLevel() {
+        return activityLevel;
+    }
+
+    public void setActivityLevel(String activityLevel) {
+        this.activityLevel = activityLevel;
     }
 
     public void setId(Long id) {
