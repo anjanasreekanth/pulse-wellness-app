@@ -16,8 +16,10 @@ import {
   getDashboard,
   updateActivity,
   updateGoal,
+  getUsers,
+  createUser,
 } from "./services/api";
-const USER_ID = 1;
+// const USER_ID = 1;
 const emptyDashboard = {
   totalActivities: 0,
   averageScore: 0,
@@ -68,6 +70,7 @@ function App() {
   const [message, setMessage] = useState("");
   const [activityToEdit, setActivityToEdit] = useState(null);
   const [dashboardSummary, setDashboardSummary] = useState(emptyDashboard);
+  const [currentUser, setCurrentUser] = useState(null);
   //auto clear message after 2.5 seconds
   useEffect(() => {
     if (!message) return;
@@ -77,14 +80,14 @@ function App() {
     }, 2500);
   }, [message]);
   useEffect(() => {
-    if (!isLoggedIn) return;
+    if (!isLoggedIn || !currentUser) return;
 
     const loadDashboardData = async () => {
       try {
         const [savedActivities, summary, savedGoal] = await Promise.all([
-          getAllActivities(USER_ID),
-          getDashboard(USER_ID),
-          getCurrentGoal(USER_ID),
+          getAllActivities(currentUser.id),
+          getDashboard(currentUser.id),
+          getCurrentGoal(currentUser.id).catch(() => null),
         ]);
         setActivities(savedActivities);
         setDashboardSummary(summary);
@@ -95,7 +98,7 @@ function App() {
     };
     loadDashboardData();
     //loadActivities();
-  }, [isLoggedIn]);
+  }, [isLoggedIn, currentUser]);
   // useEffect(() => {
   //   if (!isLoggedIn) return;
 
@@ -127,8 +130,8 @@ function App() {
 
   const handleAddActivity = async (newActivity) => {
     try {
-      const savedActivity = await createActivity(USER_ID, newActivity);
-      const summary = await getDashboard(USER_ID);
+      const savedActivity = await createActivity(currentUser.id, newActivity);
+      const summary = await getDashboard(currentUser.id);
       setActivities((previous) => [...previous, savedActivity]);
       setDashboardSummary(summary);
       setMessage("Activity added successfully");
@@ -149,8 +152,8 @@ function App() {
 
   const handleDeleteActivity = async (idToDelete) => {
     try {
-      await deleteActivity(USER_ID, idToDelete);
-      const summary = await getDashboard(USER_ID);
+      await deleteActivity(currentUser.id, idToDelete);
+      const summary = await getDashboard(currentUser.id);
       setActivities((previous) =>
         previous.filter((activity) => activity.id !== idToDelete),
       );
@@ -163,9 +166,19 @@ function App() {
   };
   //login
 
-  const login = (name) => {
+  const login = async (name) => {
+    const users = await getUsers();
+    let user = users[0];
+    if(!user){
+      user = createUser({
+        name,
+        email:"demo@pulse.com",
+        role:'USER'
+      })
+    }
+    setCurrentUser(user);
     setIsLoggedIn(true);
-    setUserName(name);
+    setUserName(user.name);
   };
 
   //update activity
@@ -173,11 +186,11 @@ function App() {
   const handleUpdateActivity = async (updatedActivity) => {
     try {
       const savedActivity = await updateActivity(
-        USER_ID,
+        currentUser.id,
         activityToEdit.id,
         updatedActivity,
       );
-      const summary = await getDashboard(USER_ID);
+      const summary = await getDashboard(currentUser.id);
 
       setActivities((previous) =>
         previous.map((activity) =>
@@ -197,15 +210,15 @@ function App() {
     try {
       let savedGoal;
       if (weeklyGoal) {
-        savedGoal = await updateGoal(USER_ID, weeklyGoal.id, {
+        savedGoal = await updateGoal(currentUser.id, weeklyGoal.id, {
           targetActivities,
         });
       } else {
-        savedGoal = createGoal(USER_ID, {
+        savedGoal = createGoal(currentUser.id, {
           targetActivities,
         });
       }
-      const summary = await getDashboard(USER_ID);
+      const summary = await getDashboard(currentUser.id);
       setWeeklyGoal(savedGoal);
       setDashboardSummary(summary);
       setMessage("Weekly goal updated");

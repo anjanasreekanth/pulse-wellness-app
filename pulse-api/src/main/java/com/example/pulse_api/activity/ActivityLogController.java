@@ -90,7 +90,7 @@ public class ActivityLogController {
         activityLogRepository.delete(activityLog);
     }
 
-    //replicate score calculation logic from UI
+    //replicate score calculation logic from UI - calculate consistent score out of 10 using duration, water and sleep
     private int calculateScore(ActivityLog activityLog){
         int durationPoints = 0;
         if(activityLog.getDurationMinutes() != null){
@@ -103,7 +103,7 @@ public class ActivityLogController {
             int water = Math.clamp(activityLog.getWaterMl(), 0, 2000);
            waterPoints = (int) Math.round((water / 2000.0) * 3);
         }
-
+        //7 to 9 hours receives the maximum sleep score
         int sleepPoints = 0;
         if(activityLog.getSleepHours() != null){
             double sleep = activityLog.getSleepHours().doubleValue();

@@ -4,11 +4,19 @@ import { useNavigate } from "react-router-dom";
 function LoginPage({ onLogin }) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    onLogin(name);
-    navigate("/");
+    //onLogin(name);
+    setErrorMessage("")
+    try{
+      await onLogin(name);
+      navigate("/");
+    }catch(error){
+      setErrorMessage(error.message)
+    }
+    
   };
 
   return (
@@ -20,7 +28,7 @@ function LoginPage({ onLogin }) {
         <p className="login-description">
           Sign in to view your Activity dashboard
         </p>
-
+        {errorMessage && <p className="activity-message">{errorMessage}</p>}
         <form className="login-form" onSubmit={handleSubmit}>
           <label htmlFor="login-name">Name</label>
           <input

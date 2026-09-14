@@ -45,10 +45,10 @@ export async function deleteActivity(userId, activityId) {
 
 export async function getCurrentGoal(userId) {
   const response = await fetch(`${API_URL}/users/${userId}/goals/current`);
+  if (response.status === 404) return null;
   if (!response.ok) throw new Error("Could not load weekly goal");
   return response.json();
 }
-
 
 export async function createGoal(userId, goal) {
   const response = await fetch(`${API_URL}/users/${userId}/goals`, {
@@ -61,14 +61,11 @@ export async function createGoal(userId, goal) {
 }
 
 export async function updateGoal(userId, goalId, goal) {
-  const response = await fetch(
-    `${API_URL}/users/${userId}/goals/${goalId}`,
-    {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(goal),
-    },
-  );
+  const response = await fetch(`${API_URL}/users/${userId}/goals/${goalId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(goal),
+  });
   if (!response.ok) throw new Error("Could not update weekly goal");
   return response.json();
 }
@@ -77,5 +74,22 @@ export async function updateGoal(userId, goalId, goal) {
 export async function getDashboard(userId) {
   const response = await fetch(`${API_URL}/users/${userId}/dashboard`);
   if (!response.ok) throw new Error("Could not load dashboard");
+  return response.json();
+}
+
+//users
+export async function getUsers() {
+  const response = await fetch(`${API_URL}/users`);
+  if (!response.ok) throw new Error("Could not load users");
+  return response.json();
+}
+
+export async function createUser(user) {
+  const response = await fetch(`${API_URL}/users`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user),
+  });
+  if (response.ok) throw new Error("Could not add user");
   return response.json();
 }
