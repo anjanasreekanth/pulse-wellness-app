@@ -114,3 +114,12 @@ export async function createProfile(userId, profile){
   return response.json()
 }
 
+export async function updateProfile(userId, profile) {
+  const response = await fetch(`${API_URL}/users/${userId}/profile`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(profile),
+  });
+  if (!response.ok) throw new Error("Could not update profile");
+  return response.json();
+}
