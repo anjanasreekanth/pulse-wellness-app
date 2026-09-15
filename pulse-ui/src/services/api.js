@@ -94,3 +94,12 @@ export async function createUser(user) {
   if (response.ok) throw new Error("Could not add user");
   return response.json();
 }
+
+//profile
+export async function getProfie(userId){
+  const response = await  fetch(`${API_URL}/users/${userId}/profile`);
+  if(response.status === 404) return null; //no profile created yet
+
+  if(!response.ok) throw new Error("Could not load user profile");
+  return response.json()
+}
