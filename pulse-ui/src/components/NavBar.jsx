@@ -29,6 +29,12 @@ function NavBar() {
       >
         My Plan
       </Link>
+      <Link
+        className={`navigation-item ${currentPath === "/profile" ? "active-link" : ""}`}
+        to="/profile"
+      >
+        Profile
+      </Link>
     </nav>
   );
 }
