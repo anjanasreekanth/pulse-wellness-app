@@ -111,7 +111,9 @@ function ProfilePage({ userId }) {
         <div className="profile-badge">♥</div>
       </div>
       {message && <p className="profile-alert profile-success">{message} </p>}
-      {errorMessage && <p className="profile-alert profile-error">{errorMessage} </p>}
+      {errorMessage && (
+        <p className="profile-alert profile-error">{errorMessage} </p>
+      )}
 
       <form className="profile-form" onSubmit={handleSubmit}>
         <fieldset className="profile-card">
@@ -238,6 +240,11 @@ function ProfilePage({ userId }) {
           </p>
         </div>
         <div className="profile-actions">
+          {profileExists && (
+            <Button className="profile-delete" onClick={handleDelete}>
+              Delete Profile
+            </Button>
+          )}
           <Button className="profile-save" type="submit">
             Save Profile
           </Button>
