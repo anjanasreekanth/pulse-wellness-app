@@ -7,6 +7,7 @@ import MyPlanPage from "./Pages/MyPlanPage";
 import LoginPage from "./Pages/LoginPage";
 import { useEffect, useState } from "react";
 import HomePage from "./Pages/HomePage";
+import ProfilePage from "./Pages/ProfilePage";
 import {
   createActivity,
   createGoal,
@@ -71,7 +72,7 @@ function App() {
   const [activityToEdit, setActivityToEdit] = useState(null);
   const [dashboardSummary, setDashboardSummary] = useState(emptyDashboard);
   const [currentUser, setCurrentUser] = useState(null);
-   //Load selected user activities, dashboard summary and current weekly goal 
+  //Load selected user activities, dashboard summary and current weekly goal
   useEffect(() => {
     if (!message) return;
 
@@ -165,16 +166,16 @@ function App() {
     }
   };
   //login
-//First saved user or creates one for an empty DB
+  //First saved user or creates one for an empty DB
   const login = async (name) => {
     const users = await getUsers();
     let user = users[0];
-    if(!user){
+    if (!user) {
       user = createUser({
         name,
-        email:"demo@pulse.com",
-        role:'USER'
-      })
+        email: "demo@pulse.com",
+        role: "USER",
+      });
     }
     setCurrentUser(user);
     setIsLoggedIn(true);
@@ -205,7 +206,7 @@ function App() {
       throw error;
     }
   };
-//update existing weekly goal or create new when a new week begins
+  //update existing weekly goal or create new when a new week begins
   const handleGoalChange = async (targetActivities) => {
     try {
       let savedGoal;
@@ -258,6 +259,8 @@ function App() {
             }
           />
           <Route path="about" element={<AboutPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+
           <Route
             path="my-plan"
             element={
