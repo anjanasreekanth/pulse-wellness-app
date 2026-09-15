@@ -103,3 +103,14 @@ export async function getProfie(userId){
   if(!response.ok) throw new Error("Could not load user profile");
   return response.json()
 }
+
+export async function createProfile(userId, profile){
+  const response = await fetch(`${API_URL}/users/${userId}/profile,`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(profile),
+  });
+  if(!response.ok) throw new Error("Could not add profile");
+  return response.json()
+}
+
