@@ -15,8 +15,7 @@ function DashboardPage({
   message,
 }) {
   //1. Create state for integration
-//console.log("DASHBOARD", dashboardSummary)
-  //streak - mock based on number of activities
+   //streak - mock based on number of activities
   // const calculateStreak = (activityCount) => {
   //   if (activityCount < 3) return 3;
   //   if (activityCount < 10) return 7;

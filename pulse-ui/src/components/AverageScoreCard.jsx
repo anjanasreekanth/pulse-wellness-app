@@ -34,13 +34,13 @@ function AverageScoreCard({ averageScore, totalActivities }) {
           <div className="progress-section">
             <div className="progress-header">
               <span>Performance</span>
-              <span>{progressPercentage} %</span>
+              <span>{Math.round(progressPercentage,2)} %</span>
             </div>
             <div className="progress-bar">
               <div
                 className="progress-fill"
                 style={{
-                  width: `${progressPercentage}%`,
+                  width: `${Math.round(progressPercentage,2)}%`,
                 }}
               />
             </div>

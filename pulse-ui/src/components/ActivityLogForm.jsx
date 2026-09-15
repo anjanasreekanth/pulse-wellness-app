@@ -44,7 +44,7 @@ function ActivityLogForm({
       }
       setFormState(emptyForm);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   // handle input change event
