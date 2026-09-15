@@ -105,7 +105,7 @@ export async function getProfie(userId) {
 }
 
 export async function createProfile(userId, profile) {
-  const response = await fetch(`${API_URL}/users/${userId}/profile,`, {
+  const response = await fetch(`${API_URL}/users/${userId}/profile`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(profile),

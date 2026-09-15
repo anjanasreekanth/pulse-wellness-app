@@ -9,17 +9,17 @@ import {
 const emptyProfile = {
   dateOfBirth: "",
   heightCm: "",
-  weightCm: "",
+  weightKg: "",
   activityLevel: "MODERATE",
   primaryGoal: "FITNESS",
   dailyWaterTargetMl: 2500,
   sleepTargetHours: 8,
-  perferredUnit: "METRIC",
+  preferredUnit: "METRIC",
 };
 
 function ProfilePage({ userId }) {
   const [form, setForm] = useState(emptyProfile);
-  const [profileExists, setProfileExists] = useState(profileExists);
+  const [profileExists, setProfileExists] = useState(false);
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   //load profile
@@ -31,12 +31,12 @@ function ProfilePage({ userId }) {
           setForm({
             dateOfBirth: savedProfile.dateOfBirth,
             heightCm: savedProfile.heightCm,
-            weightCm: savedProfile.weightCm,
+            weightKg: savedProfile.weightKg,
             activityLevel: savedProfile.activityLevel ?? "MODERATE",
             primaryGoal: savedProfile.primaryGoal ?? "FITNESS",
             dailyWaterTargetMl: savedProfile.dailyWaterTargetMl ?? 2500,
             sleepTargetHours: savedProfile.sleepTargetHours ?? 8,
-            perferredUnit: savedProfile.perferredUnit ?? "METRIC",
+            preferredUnit: savedProfile.preferredUnit ?? "METRIC",
           });
           setProfileExists(true);
         }
@@ -71,12 +71,12 @@ function ProfilePage({ userId }) {
       setForm({
         dateOfBirth: savedProfile.dateOfBirth,
         heightCm: savedProfile.heightCm,
-        weightCm: savedProfile.weightCm,
+        weightKg: savedProfile.weightKg,
         activityLevel: savedProfile.activityLevel ?? "MODERATE",
         primaryGoal: savedProfile.primaryGoal ?? "FITNESS",
         dailyWaterTargetMl: savedProfile.dailyWaterTargetMl ?? 2500,
         sleepTargetHours: savedProfile.sleepTargetHours ?? 8,
-        perferredUnit: savedProfile.perferredUnit ?? "METRIC",
+        preferredUnit: savedProfile.preferredUnit ?? "METRIC",
       });
       setProfileExists(true);
       setMessage("Profile Saved");
@@ -168,7 +168,7 @@ function ProfilePage({ userId }) {
           <select
             id="preferredUnit"
             name="preferredUnit"
-            value={form.perferredUnit}
+            value={form.preferredUnit}
             onChange={handleChange}
           >
             <option value="METRIC">Metric</option>
