@@ -259,7 +259,7 @@ function App() {
             }
           />
           <Route path="about" element={<AboutPage />} />
-          <Route path="profile" element={<ProfilePage />} />
+          <Route path="profile" element={<ProfilePage userId={currentUser.id} />} />
 
           <Route
             path="my-plan"
