@@ -22,7 +22,6 @@ public class UserProfileController {
     }
 
     private UserProfile findProfile(Long userId) {
-        System.out.println(userId);
         return userProfileRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "User not found"
