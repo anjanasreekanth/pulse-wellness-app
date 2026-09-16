@@ -1,27 +1,105 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
+import {
+  createProfile,
+  deletProfile,
+  getProfie,
+  updateProfile,
+} from "../services/api";
 const emptyProfile = {
   dateOfBirth: "",
   heightCm: "",
-  weightCm: "",
+  weightKg: "",
   activityLevel: "MODERATE",
   primaryGoal: "FITNESS",
   dailyWaterTargetMl: 2500,
   sleepTargetHours: 8,
-  perferredUnit: "METRIC",
+  preferredUnit: "METRIC",
 };
 
-function ProfilePage() {
+function ProfilePage({ userId }) {
   const [form, setForm] = useState(emptyProfile);
-
+  const [profileExists, setProfileExists] = useState(false);
+  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  //load profile
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const savedProfile = await getProfie(userId);
+        if (savedProfile) {
+          setForm({
+            dateOfBirth: savedProfile.dateOfBirth,
+            heightCm: savedProfile.heightCm,
+            weightKg: savedProfile.weightKg,
+            activityLevel: savedProfile.activityLevel ?? "MODERATE",
+            primaryGoal: savedProfile.primaryGoal ?? "FITNESS",
+            dailyWaterTargetMl: savedProfile.dailyWaterTargetMl ?? 2500,
+            sleepTargetHours: savedProfile.sleepTargetHours ?? 8,
+            preferredUnit: savedProfile.preferredUnit ?? "METRIC",
+          });
+          setProfileExists(true);
+        }
+      } catch (error) {
+        setErrorMessage(error.message);
+      }
+    };
+    loadProfile();
+  }, [userId]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((current) => ({ ...current, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
+    setErrorMessage("");
+    const profile = {
+      ...form,
+      dateOfBirth: form.dateOfBirth || null,
+      heighCm: form.heightCm || null,
+      weightKg: form.weightKg || null,
+      dailyWaterTargetMl: form.dailyWaterTargetMl,
+      sleepTargetHours: form.sleepTargetHours,
+    };
+    try {
+      const savedProfile = profileExists
+        ? await updateProfile(userId, profile)
+        : await createProfile(userId, profile);
+
+      setForm({
+        dateOfBirth: savedProfile.dateOfBirth,
+        heightCm: savedProfile.heightCm,
+        weightKg: savedProfile.weightKg,
+        activityLevel: savedProfile.activityLevel ?? "MODERATE",
+        primaryGoal: savedProfile.primaryGoal ?? "FITNESS",
+        dailyWaterTargetMl: savedProfile.dailyWaterTargetMl ?? 2500,
+        sleepTargetHours: savedProfile.sleepTargetHours ?? 8,
+        preferredUnit: savedProfile.preferredUnit ?? "METRIC",
+      });
+      setProfileExists(true);
+      setMessage("Profile Saved");
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
   };
+  const handleDelete = async () => {
+    const shouldDelete = window.confirm("Are you sure want to delete profile?");
+    if (!shouldDelete) return;
+
+    setMessage("");
+    setErrorMessage("");
+    try {
+      await deletProfile(userId);
+      setForm(emptyProfile);
+      setProfileExists(false);
+      setMessage("Profile Deleted");
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
+  };
+
   return (
     <section className="profile-page">
       <div className="profile-heading">
@@ -32,6 +110,11 @@ function ProfilePage() {
         </div>
         <div className="profile-badge">♥</div>
       </div>
+      {message && <p className="profile-alert profile-success">{message} </p>}
+      {errorMessage && (
+        <p className="profile-alert profile-error">{errorMessage} </p>
+      )}
+
       <form className="profile-form" onSubmit={handleSubmit}>
         <fieldset className="profile-card">
           <legend> Personal Details </legend>
@@ -85,7 +168,7 @@ function ProfilePage() {
           <select
             id="preferredUnit"
             name="preferredUnit"
-            value={form.perferredUnit}
+            value={form.preferredUnit}
             onChange={handleChange}
           >
             <option value="METRIC">Metric</option>
@@ -157,6 +240,11 @@ function ProfilePage() {
           </p>
         </div>
         <div className="profile-actions">
+          {profileExists && (
+            <Button className="profile-delete" onClick={handleDelete}>
+              Delete Profile
+            </Button>
+          )}
           <Button className="profile-save" type="submit">
             Save Profile
           </Button>

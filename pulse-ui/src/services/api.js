@@ -94,3 +94,42 @@ export async function createUser(user) {
   if (response.ok) throw new Error("Could not add user");
   return response.json();
 }
+
+//profile
+export async function getProfie(userId) {
+  const response = await fetch(`${API_URL}/users/${userId}/profile`);
+  if (response.status === 404) return null; //no profile created yet
+
+  if (!response.ok) throw new Error("Could not load user profile");
+  return response.json();
+}
+
+export async function createProfile(userId, profile) {
+  const response = await fetch(`${API_URL}/users/${userId}/profile`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(profile),
+  });
+  if (!response.ok) throw new Error("Could not add profile");
+  return response.json();
+}
+
+export async function updateProfile(userId, profile) {
+  const response = await fetch(`${API_URL}/users/${userId}/profile`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(profile),
+  });
+  if (!response.ok) throw new Error("Could not update profile");
+  return response.json();
+}
+
+export async function deletProfile(userId) {
+  const response = await fetch(
+    `${API_URL}/users/${userId}/profile`,
+    {
+      method: "DELETE",
+    },
+  );
+  if (!response.ok) throw new Error("Could not delete activity");
+}
