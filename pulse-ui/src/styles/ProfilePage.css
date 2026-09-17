@@ -78,3 +78,32 @@
   background: rgba(255, 255, 255, 0.96);
   box-shadow: 0 10px 28px black;
 }
+.profile-card legend{
+    padding: 0 0.4rem;
+    color: #1d5143;
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.profile-card-copy{
+    margin: 0 0 1.25rem;
+    color: #657a74
+}
+
+.profile-card label{
+    display: block;
+    margin: 1rem 0 0.4rem;
+    color: #294f45;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+.profile-card input,
+.profile-card select{
+    width: 100%;
+    min-height: 46px;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid #bfd2cc;
+    border-radius: 9px;
+    background: #fbfefd;
+    color: #263d37
+}
