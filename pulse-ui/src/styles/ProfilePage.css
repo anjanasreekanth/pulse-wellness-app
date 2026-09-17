@@ -49,3 +49,11 @@
     font-size: 2.25rem;
 
 }
+
+.profile-alert,
+.profile-status{
+    margin: 0 0 1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    font-weight: 650;
+}
