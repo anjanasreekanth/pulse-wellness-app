@@ -83,6 +83,7 @@
     color: #1d5143;
     font-size: 1.25rem;
     font-weight: 800;
+    
 }
 
 .profile-card-copy{
@@ -141,4 +142,16 @@
     border-radius: 9px;
     font-weight: 750;
     cursor: pointer;
+}
+
+.profile-save{
+    border: 1px solid #167c62;
+    background: #167c62;
+    color: white;
+}
+
+.profile-delete{
+   border: 1px solid #d39892;
+    background: white;
+    color: #a23c34;
 }
