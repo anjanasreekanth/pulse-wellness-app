@@ -16,3 +16,36 @@
     box-shadow: 0 12px 32px black;
 }
 
+
+.profile-label{
+    margin: 0 0 0.5rem;
+    color: #167c62;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.15rem;
+}
+.profile-heading h1{
+    margin: 0;
+    color: #173f35;
+    font-size: clamp(1.8rem, 4vw, 2,75rem);
+
+}
+
+.profile-heading p:last-child{
+    margin: 0.7 rem 0 0;
+    color: #526a63
+}
+
+
+.profile-badge{
+    display: grid;
+    flex: 0 0 auto;
+    width: 84px;
+    height: 84px;
+    place-items: center;
+    border-radius: 50%;
+    background: #167c62;
+    color: white;
+    font-size: 2.25rem;
+
+}
