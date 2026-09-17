@@ -107,3 +107,22 @@
     background: #fbfefd;
     color: #263d37
 }
+
+.profile-two-columns{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.profile-privacy{
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    grid-column: 1 / -1;
+    border: 1px solid #cce6dc;
+    border-radius: 12px;
+    background: white;
+    color:#466159
+}
+.profile-privacy p{
+    margin: 0;
+}
