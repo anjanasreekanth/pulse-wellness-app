@@ -16,11 +16,6 @@
   justify-content: center;
 }
 
-.fire {
-  font-size: 4rem;
-  line-height: 1;
-}
-
 .streak-number {
   font-size: 5rem;
   font-weight: 700;
@@ -38,7 +33,7 @@
   font-size: 1.3rem;
 
   letter-spacing: 3px;
-   text-align: center;
+  text-align: center;
 }
 .streak-label {
   margin-top: 0.5rem;
@@ -60,16 +55,14 @@
   .streak-card {
     padding: 1.5rem;
   }
-  .fire {
-    font-size: 3rem;
-  }
+
   .streak-number {
     font-size: 4rem;
   }
   .streak-label {
     font-size: 1rem;
   }
-  .weekly-header{
+  .weekly-header {
     font-size: 1rem;
     line-height: 1.4;
     letter-spacing: 1px;

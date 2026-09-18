@@ -14,17 +14,19 @@
   text-align: center;
 }
 
+ 
+
 .inspiration-icon {
   display: grid;
-  width: 55px;
-  height: 55px;
+  flex: 0 0 auto;
+  width: 84px;
+  height: 84px;
   place-items: center;
   border-radius: 50%;
-  background: white;
-  color: #167c62;
-  font-size: 1.5rem;
+  background: #167c62;
+  color: white;
+  font-size: 2.25rem;
 }
-
 .inspiration-activity {
   color: #167c62;
   font-weight: bold;

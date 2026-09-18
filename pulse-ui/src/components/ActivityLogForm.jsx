@@ -23,17 +23,9 @@ function ActivityLogForm({
         sleepHours: activityToEdit.sleepHours,
       }
     : emptyForm;
-  //1. useState to manage form data
-  // const [formState, setFormState] = useState({
-  //   date: "",
-  //   activity: "",
-  //   activityType: "",
-  //   duration: "",
-  //   water: 0,
-  //   sleep: 0,
-  // });
+
   const [formState, setFormState] = useState(initialForm);
-   //use same form for both creating and editing an activity
+  //use same form for both creating and editing an activity
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -113,7 +105,7 @@ function ActivityLogForm({
             <option value="">Select Type</option>
             <option>Cardio</option>
             <option>Strength</option>
-            <option>mindfulness</option>
+            <option>Mindfulness</option>
           </select>
         </div>
         <div className="form-field full-width duration-field">
@@ -158,19 +150,18 @@ function ActivityLogForm({
             required
           />
         </div>
-        {/* Button */}
-        <button className="btn-submit full-width-button" type="submit">
-          {activityToEdit ? "UPDATE LOG" : "ADD LOG"}
-        </button>
-
-        {activityToEdit && (
-          <button
-            className="btn cancel-btn"
-            onClick={handleCancel}
-          >
-            CANCEL
+        <div className="activity-form-actions">
+          {/* Button */}
+          <button className="btn-submit" type="submit">
+            {activityToEdit ? "UPDATE LOG" : "ADD LOG"}
           </button>
-        )}
+
+          {activityToEdit && (
+            <button className=" btn-cancel" onClick={handleCancel}>
+              CANCEL
+            </button>
+          )}
+        </div>
       </form>
     </div>
   );

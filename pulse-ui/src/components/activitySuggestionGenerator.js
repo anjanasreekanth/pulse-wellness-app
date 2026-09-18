@@ -3,7 +3,7 @@ const activitySuggestions = [
     time: "short",
     energy: "low",
     activity: "Meditation",
-    type: "mindfulness",
+    type: "Mindfulness",
     duration: 10,
     inspiration:
       "A calm mind is a strong start. Take ten quiet minutes for yourself.",
@@ -29,7 +29,7 @@ const activitySuggestions = [
     time: "long",
     energy: "low",
     activity: "Walking",
-    type: "mindfulness",
+    type: "Mindfulness",
     duration: 40,
     inspiration:
       "Keep a comfortable pace. Consistency matters more than speed.",

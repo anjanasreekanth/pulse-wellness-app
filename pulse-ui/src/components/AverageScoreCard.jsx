@@ -1,20 +1,4 @@
-// function AverageScoreCard({ activities }) {
-  // const max = 10; // max score possible
-  // const totalActivities = activities.length; // total activities
-  // const totalScore = activities.reduce(
-  //   (sum, activity) => sum + activity.score,
-  //   0,
-  // ); // function to calculate total score
 
-  // //average score
-  // const averageScore =
-  //   totalActivities > 0 ? (totalScore / totalActivities).toFixed(1) : 0;
-  // const maxScorePossible = totalActivities * max; // maximum score possible
-  // //calculate progress percentage., math.round to limit to 2 decimal
-  // const progressPercentage =
-  //   totalActivities > 0
-  //     ? Math.round((totalScore / maxScorePossible) * 100, 2)
-  //     : 0;
 function AverageScoreCard({ averageScore, totalActivities }) {
   const max = 10;
   const progressPercentage = (averageScore/max)*100;

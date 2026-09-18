@@ -20,7 +20,7 @@ import {
   getUsers,
   createUser,
 } from "./services/api";
-// const USER_ID = 1;
+
 const emptyDashboard = {
   totalActivities: 0,
   averageScore: 0,
@@ -31,39 +31,6 @@ const emptyDashboard = {
 };
 
 function App() {
-  // const [activities, setActivities] = useState([
-  //   {
-  //     id: 1,
-  //     date: "2026-06-20",
-  //     activity: "Running",
-  //     duration: "60 mts",
-  //     activityType: "cardio",
-  //     score: 8,
-  //     water: 2500,
-  //     sleep: 7,
-  //   },
-  //   {
-  //     id: 2,
-  //     date: "2026-06-21",
-  //     activity: "Walking",
-  //     activityType: "cardio",
-  //     duration: "30 mts",
-  //     score: 7,
-  //     water: 1800,
-  //     sleep: 8,
-  //   },
-  //   {
-  //     id: 3,
-  //     date: "2026-06-22",
-  //     activity: "Meditation",
-  //     duration: "30 mts",
-  //     activityType: "mindfulness",
-
-  //     score: 7,
-  //     water: 2000,
-  //     sleep: 7,
-  //   },
-  // ]);
   const [activities, setActivities] = useState([]);
   const [weeklyGoal, setWeeklyGoal] = useState(4);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -82,7 +49,7 @@ function App() {
   }, [message]);
   useEffect(() => {
     if (!isLoggedIn || !currentUser) return;
-
+ 
     const loadDashboardData = async () => {
       try {
         const [savedActivities, summary, savedGoal] = await Promise.all([
@@ -100,35 +67,7 @@ function App() {
     loadDashboardData();
     //loadActivities();
   }, [isLoggedIn, currentUser]);
-  // useEffect(() => {
-  //   if (!isLoggedIn) return;
-
-  //   const loadActivities = async () => {
-  //     try {
-  //       const savedActivities = await getAllActivities(USER_ID);
-  //       setActivities(savedActivities);
-  //     } catch (error) {
-  //       setMessage(error.message);
-  //     }
-  //   };
-  //   loadActivities();
-  // }, [isLoggedIn]);
-  // 2. event handler to manage add acitivity
-  // const handleAddActivity = (newActivity) => {
-  //   // add new activity with id
-  //   const newActivityData = {
-  //     ...newActivity,
-  //     id: Date.now(), // generating dynamic id
-  //     score: Math.floor(Math.random() * 6) + 5, // mock score generateor(5 to 10)
-  //   };
-
-  //   // update the state
-  //   setActivities((prev) => [...prev, newActivityData]);
-  //   setMessage("Activity added successfully");
-
-  //   //alert("Activity Log Added!");
-  // };
-
+  
   const handleAddActivity = async (newActivity) => {
     try {
       const savedActivity = await createActivity(currentUser.id, newActivity);
@@ -141,15 +80,7 @@ function App() {
       throw error;
     }
   };
-
-  //3. delete activity handler
-  // const handleDeleteActivity = (idToDelete) => {
-  //   // filter activity that is not maching the id
-  //   const updatedActivities = activities.filter(
-  //     (activity) => activity.id !== idToDelete,
-  //   );
-  //   setActivities(updatedActivities);
-  //   s
+ 
 
   const handleDeleteActivity = async (idToDelete) => {
     try {
@@ -171,7 +102,7 @@ function App() {
     const users = await getUsers();
     let user = users[0];
     if (!user) {
-      user = createUser({
+      user = await createUser({
         name,
         email: "demo@pulse.com",
         role: "USER",
@@ -199,6 +130,7 @@ function App() {
         ),
       );
       setDashboardSummary(summary);
+ 
       setActivityToEdit(null);
       setMessage("Activity updated successfully");
     } catch (error) {
@@ -215,7 +147,7 @@ function App() {
           targetActivities,
         });
       } else {
-        savedGoal = createGoal(currentUser.id, {
+        savedGoal = await createGoal(currentUser.id, {
           targetActivities,
         });
       }

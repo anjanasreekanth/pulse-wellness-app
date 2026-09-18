@@ -62,7 +62,7 @@ const resources = [
     activity: "Meditation",
     type: "Guide",
     title: "Mindful Basics",
-    description: "Learn what minfulness is and how to begin practicing.",
+    description: "Learn what mindfulness is and how to begin practicing.",
     link: "https://www.nhs.uk/mental-health/self-help/tips-and-support/mindfulness/",
   },
 ];

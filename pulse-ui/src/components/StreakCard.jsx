@@ -4,8 +4,7 @@ function StreakCard({ streakValue = 14, currentDays = 5, weeklyGoal = 7 }) {
   return (
     <div className="streak-card">
       <div className="streak-header">
-        {/**icon placeholder */}
-        <span className="fire"> 🔥</span>
+    
         {/**Streak value  */}
         <div className="streak-number"> {streakValue}</div>
         {/**subtext below streak value */}

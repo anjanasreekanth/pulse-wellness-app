@@ -91,7 +91,7 @@ export async function createUser(user) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(user),
   });
-  if (response.ok) throw new Error("Could not add user");
+  if (!response.ok) throw new Error("Could not add user");
   return response.json();
 }
 
