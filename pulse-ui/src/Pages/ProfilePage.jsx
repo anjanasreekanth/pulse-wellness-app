@@ -117,11 +117,8 @@ function ProfilePage({ userId }) {
 
       <form className="profile-form" onSubmit={handleSubmit}>
         <fieldset className="profile-card">
-          <legend> Personal Details </legend>
-          <p className="profile-card-copy">
-            These are personal and remains private
-          </p>
-
+          <h2> Personal Details </h2>
+       
           <label htmlFor="dateOfBirth">Date of Birth</label>
           <input
             id="dateOfBirth"
@@ -141,7 +138,7 @@ function ProfilePage({ userId }) {
                 type="number"
                 value={form.heightCm}
                 onChange={handleChange}
-                ß
+                
                 placeholder="175"
                 min="50"
                 max="275"
@@ -176,7 +173,7 @@ function ProfilePage({ userId }) {
           </select>
         </fieldset>
         <fieldset className="profile-card">
-          <legend>Preferences</legend>
+          <h2>Preferences</h2>
           <p className="profile-card-copy" Set your preferences></p>
           <label htmlFor="activityLevel"></label>
           <select
@@ -234,11 +231,7 @@ function ProfilePage({ userId }) {
             </div>
           </div>
         </fieldset>
-        <div className="profile-privacy">
-          <p>
-            <strong>Your information is private</strong>
-          </p>
-        </div>
+    
         <div className="profile-actions">
           {profileExists && (
             <Button className="profile-delete" onClick={handleDelete}>

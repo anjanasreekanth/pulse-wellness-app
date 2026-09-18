@@ -10,7 +10,8 @@ function DailyInspiration({ suggestion }) {
       {suggestion ? (
         <>
           <div className="inspiration-content">
-            <div className="inspiration-icon">*</div>
+                    <div className="inspiration-icon">♥</div>
+
             <p className="inspiration-activity">
               Today's Activity: {suggestion.activity}
             </p>
