@@ -73,7 +73,7 @@ public class ActivityLogController {
         ActivityLog existingActivity = findActivity(userId, activityId);
         existingActivity.setActivityDate(updatedActivity.getActivityDate());
         existingActivity.setActivityName(updatedActivity.getActivityName());
-        existingActivity.setActivityDate(updatedActivity.getActivityDate());
+        existingActivity.setActivityType(updatedActivity.getActivityType());
         existingActivity.setDurationMinutes(updatedActivity.getDurationMinutes());
         existingActivity.setWaterMl(updatedActivity.getWaterMl());
         existingActivity.setSleepHours(updatedActivity.getSleepHours());
