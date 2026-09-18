@@ -20,7 +20,7 @@ import {
   getUsers,
   createUser,
 } from "./services/api";
-// const USER_ID = 1;
+
 const emptyDashboard = {
   totalActivities: 0,
   averageScore: 0,

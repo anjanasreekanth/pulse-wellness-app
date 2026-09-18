@@ -14,14 +14,7 @@ function DashboardPage({
   onDeleteActivity,
   message,
 }) {
-  //1. Create state for integration
-   //streak - mock based on number of activities
-  // const calculateStreak = (activityCount) => {
-  //   if (activityCount < 3) return 3;
-  //   if (activityCount < 10) return 7;
-  //   return 14; // if 10+ then 14 days streak
-  // };
-
+  
   return (
     // conditional rendering of add / delete message
     <>
@@ -46,9 +39,6 @@ function DashboardPage({
             />
 
             <StreakCard
-              // streakValue={calculateStreak(activities.length)}
-              // currentDays={activities.length}
-              // weeklyGoal={weeklyGoal}
               streakValue={dashboardSummary.currentStreakDays}
               currentDays={dashboardSummary.activitiesCompleted}
               weeklyGoal={dashboardSummary.weeklyGoal}

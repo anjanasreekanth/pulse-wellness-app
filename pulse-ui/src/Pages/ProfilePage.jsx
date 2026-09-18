@@ -16,7 +16,12 @@ const emptyProfile = {
   sleepTargetHours: 8,
   preferredUnit: "METRIC",
 };
-
+function getYesterdayDate(){
+const yesterday = new Date();
+yesterday.setDate(yesterday.getDate() - 1);
+return yesterday.toISOString().split("T")[0];
+}
+const latestBirthday = getYesterdayDate();
 function ProfilePage({ userId }) {
   const [form, setForm] = useState(emptyProfile);
   const [profileExists, setProfileExists] = useState(false);
@@ -46,6 +51,13 @@ function ProfilePage({ userId }) {
     };
     loadProfile();
   }, [userId]);
+  useEffect(() => {
+    if (!message) return;
+
+    setTimeout(() => {
+      setMessage("");
+    }, 2500);
+  }, [message]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((current) => ({ ...current, [name]: value }));
@@ -85,9 +97,7 @@ function ProfilePage({ userId }) {
     }
   };
   const handleDelete = async () => {
-    const shouldDelete = window.confirm("Are you sure want to delete profile?");
-    if (!shouldDelete) return;
-
+   
     setMessage("");
     setErrorMessage("");
     try {
@@ -118,7 +128,7 @@ function ProfilePage({ userId }) {
       <form className="profile-form" onSubmit={handleSubmit}>
         <fieldset className="profile-card">
           <h2> Personal Details </h2>
-       
+
           <label htmlFor="dateOfBirth">Date of Birth</label>
           <input
             id="dateOfBirth"
@@ -126,7 +136,8 @@ function ProfilePage({ userId }) {
             type="date"
             value={form.dateOfBirth}
             onChange={handleChange}
-            max={new Date().toISOString().split("T")[0]}
+            required
+            max={latestBirthday}
           />
 
           <div className="profile-two-columns">
@@ -138,7 +149,6 @@ function ProfilePage({ userId }) {
                 type="number"
                 value={form.heightCm}
                 onChange={handleChange}
-                
                 placeholder="175"
                 min="50"
                 max="275"
@@ -231,7 +241,7 @@ function ProfilePage({ userId }) {
             </div>
           </div>
         </fieldset>
-    
+
         <div className="profile-actions">
           {profileExists && (
             <Button className="profile-delete" onClick={handleDelete}>
