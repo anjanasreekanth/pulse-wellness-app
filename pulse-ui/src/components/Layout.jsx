@@ -13,9 +13,9 @@ function Layout({ userName }) {
           <NavBar />
           <div className="user">
             <span className="user-icon">
-              {userName.charAt(0).toUpperCase()}
+              {userName?.charAt(0).toUpperCase()}
             </span>
-            <span className="user-name"> Welcome {userName.toUpperCase()}</span>
+            <span className="user-name"> Welcome {userName?.toUpperCase()}</span>
           </div>
         </div>
       </header>

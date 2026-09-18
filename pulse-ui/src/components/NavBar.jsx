@@ -12,16 +12,16 @@ function NavBar() {
         Home
       </Link>
       <Link
-        className={`navigation-item ${currentPath === "/dashboard" ? "active-link" : ""}`}
-        to="/dashboard"
-      >
-        Dashboard
-      </Link>
-      <Link
         className={`navigation-item ${currentPath === "/about" ? "active-link" : ""}`}
         to="/about"
       >
         About
+      </Link>
+       <Link
+        className={`navigation-item ${currentPath === "/dashboard" ? "active-link" : ""}`}
+        to="/dashboard"
+      >
+        Dashboard
       </Link>
       <Link
         className={`navigation-item ${currentPath === "/my-plan" ? "active-link" : ""}`}

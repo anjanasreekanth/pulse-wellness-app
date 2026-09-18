@@ -82,7 +82,7 @@ function App() {
   }, [message]);
   useEffect(() => {
     if (!isLoggedIn || !currentUser) return;
-
+ 
     const loadDashboardData = async () => {
       try {
         const [savedActivities, summary, savedGoal] = await Promise.all([
@@ -171,7 +171,7 @@ function App() {
     const users = await getUsers();
     let user = users[0];
     if (!user) {
-      user = createUser({
+      user = await createUser({
         name,
         email: "demo@pulse.com",
         role: "USER",
@@ -215,7 +215,7 @@ function App() {
           targetActivities,
         });
       } else {
-        savedGoal = createGoal(currentUser.id, {
+        savedGoal = await createGoal(currentUser.id, {
           targetActivities,
         });
       }
